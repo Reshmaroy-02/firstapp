@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+const fs = require('fs');
 const AssistantV2 = require('ibm-watson/assistant/v2');
 const ToneAnalyzerV3 = require('ibm-watson/tone-analyzer/v3')
 const SpeechToTextV1 = require('ibm-watson/speech-to-text/v1');
@@ -30,7 +31,7 @@ const speechToText = new SpeechToTextV1({
     authenticator: new IamAuthenticator({
       apikey: 'wpc7pMrUD5wiQlu0_d_cEZqDoklEiJS7l32UQ6LIskMu',
     }),
-    url: 'https://api.eu-gb.assistant.watson.cloud.ibm.com/instances/50dcd796-c4a3-4ca9-93a5-76181c02fd2c',
+    url: 'https://api.eu-gb.assistant.watson.cloud.ibm.com',
   });
 
 
@@ -80,18 +81,18 @@ router.post('/AnalyzeTone',(req, res, next)=>{
   });
 });
 
-router.post('/SpeechToText',(req, res, next)=>{
+router.post('/ToText',(req, res, next)=>{
   console.log("Watson is listening...You can talk now")
 const params = {
   audio: fs.createReadStream('./src/app/assets/audio/female.wav'),
   contentType: 'audio/wav; rate=44100',
-  speech_detector_sensitivity: '0.6',
-  background_audio_suppression: '0.5',
+  // speech_detector_sensitivity: '0.6',
+  // background_audio_suppression: '0.5',
   // TransferEncoding: 'chuncked',
   // headers: {
   //   'Transfer-Encoding-': 'chuncked'
   // },
-  inactivity_timeout:'30'
+  //inactivity_timeout:'30'
 }
 speechToText.recognize(params)
   .then(response => {

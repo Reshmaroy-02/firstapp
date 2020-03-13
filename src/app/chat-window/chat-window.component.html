@@ -7,6 +7,7 @@
                     <span class="online_icon"></span>
                 </div>
                 <div class="user_info">
+
                     <span>Insurance Bot</span><br>
                     <button class="badge badge-danger" (click)="logout()">Logout</button>
                 </div>
@@ -25,7 +26,7 @@
             <div class="d-flex justify-content-start mb-4" *ngFor="let msg of data">
                 <ng-container *ngIf="msg.type==='question'">
                     <div class="img_cont_msg">
-                        <img src="https://cdn.shopify.com/s/files/1/0022/6253/2209/products/Codi_620x.png?v=1574898512" class="rounded-circle user_img_msg">
+                        <img [src]="user_dp" class="rounded-circle user_img_msg">
                     </div>
                     <div class="msg_cotainer">
                         {{msg.text}}
@@ -37,6 +38,15 @@
                         {{msg.text}}
                         <span class="msg_time_send">8:55 AM, Today</span>
                     </div>
+                    <div class="img_cont_msg">
+                        <img src="https://cdn.shopify.com/s/files/1/0022/6253/2209/products/Codi_620x.png?v=1574898512" class="rounded-circle user_img_msg">
+                    </div>
+                </ng-container>
+                <ng-container *ngIf="msg.type==='opt'" >
+                    <button class="msg_cotainer_send" (click)="userOpt=msg.text;addItem(null);">
+                        {{msg.text}}
+                        <span class="msg_time_send">8:55 AM, Today</span>
+                    </button>
                     <div class="img_cont_msg">
                         <img src="https://cdn.shopify.com/s/files/1/0022/6253/2209/products/Codi_620x.png?v=1574898512" class="rounded-circle user_img_msg">
                     </div>
@@ -113,10 +123,11 @@
         </div>
     </div>
     <div class="senti_btn">
-    <button class="btn btn-success" data-toggle="modal" data-target="#sentimentModal">Sentiment</button>
-    <button class="speech"  data-toggle="speech_modal" data-target="#speech-totextModal">Voice Input</button>
+    <button class="btn btn-info btn-lg" data-toggle="modal" data-target="#sentimentModal">Sentiment</button>
+    <button class="btn btn-info btn-lg"  data-toggle="modal" data-target="#totextModal">Voice Input</button>
     </div>
     
 
     <app-sentiment-analysis></app-sentiment-analysis>
+    <app-speech-to-text></app-speech-to-text>
 </div>

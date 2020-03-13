@@ -13,9 +13,9 @@ import { Utterence } from '../model/utterence.model';
 export class ChatWindowComponent implements OnInit {
 
   user_dp:string;
-
+  userOpt:string;
   userInput:string;
-
+  opt:any;
   input:Input;
   
   WatsonRes: any;
@@ -33,6 +33,18 @@ export class ChatWindowComponent implements OnInit {
 
 
   addItem(value:string){
+    if(this.userOpt!=null)
+    {
+      for (var j = 0; j < this.opt.length; j++){
+        if(this.opt[j].label==this.userOpt)
+        {
+          this.userInput=this.opt[j].value.input.text;
+          console.log(this.opt[j].value.input.text);
+        }
+      }
+      this.userOpt=null;
+      this.opt=null;
+    }
     this.data.push({ type: "question", text: this.userInput, options: [], feedback: false });
     //this.utterances.push({user:"customer", text: this.userInput})
     this.chatService.pushUtterences({user:"customer", text: this.userInput})
@@ -65,7 +77,15 @@ export class ChatWindowComponent implements OnInit {
             //this.utterances.push({user:"agent", text:String(this.WatsonRes.output.generic[i].text)})
             this.chatService.pushUtterences({user:"agent", text:String(this.WatsonRes.output.generic[i].text)});
           }
+          if (this.WatsonRes.output.generic[i].response_type == 'option'){
+            this.opt=this.WatsonRes.output.generic[i].options;
+            for (var j = 0; j < this.WatsonRes.output.generic[i].options.length; j++){
+              this.data.push({ type: "opt", text: String(this.WatsonRes.output.generic[i].options[j].label), options: [], feedback: true });
+              //this.utterances.push({user:"agent", text:String(this.WatsonRes.output.generic[i].text)})
+              this.chatService.pushUtterences({user:"agent", text:String(this.WatsonRes.output.generic[i].options[j].label)});
         }
+      }
+    }
       })
     }
     console.log(this.data);
@@ -74,7 +94,7 @@ export class ChatWindowComponent implements OnInit {
   constructor(private chatService:ChatService, private router:Router) {
     this.user_dp='assets/images/user.jpg';
     this.input = { session_id: "", userID: 0,  assistant_id: "", question: "" };
-    this.input.assistant_id='304d0d5d-2e6b-4bac-aa1f-109f21fa6b71';
+    this.input.assistant_id='0fc05b91-5854-4f2b-9dbf-291b2d7b63cf';
     this.chatService.createSession(this.input).subscribe(response=>{
         this.WatsonRes = response;
         this.data = [];
@@ -93,7 +113,7 @@ export class ChatWindowComponent implements OnInit {
   ngOnInit() {
   }
 
-  
+    
 
   logout(){
     localStorage.removeItem('user');

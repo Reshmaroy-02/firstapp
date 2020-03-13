@@ -28,10 +28,11 @@ export class ChatService{
     }
 
     
-    speechToTextConverter()
+    TextConverter()
     {
-      return this.http.post('api/SpeechToText',this.utterences)
+      return this.http.post('api/ToText',this.utterences)
     }
+    
     /*playaudio(b_msg, input) {
         try {
           console.log("Inside Play audio ts : ");

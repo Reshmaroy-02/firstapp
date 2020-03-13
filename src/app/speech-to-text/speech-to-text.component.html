@@ -1,0 +1,33 @@
+<div class="modal" id="totextModal" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+  
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Voice Input</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+  
+        <!-- Modal body -->
+        <div class="modal-body">
+          <div *ngIf="!sshow">
+            <button class="btn btn-primary" (click)="convertToText()">Convert to text</button>
+          </div>
+          <div *ngIf="sshow">
+            <button class="btn btn-primary">Close window</button>
+          </div>
+          <div *ngIf="sshow" class="card">
+            <div class="card-body">
+              
+            </div>
+          </div>
+        </div>
+  
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+  
+      </div>
+    </div>
+  </div>

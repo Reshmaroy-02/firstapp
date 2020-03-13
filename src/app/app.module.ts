@@ -10,13 +10,15 @@ import { LoginComponent } from './login/login.component';
 import { ChatService } from './services/chat.service';
 import { AuthGuard } from './guards/auth.guard';
 import { SentimentAnalysisComponent } from './sentiment-analysis/sentiment-analysis.component';
+import { SpeechToTextComponent } from './speech-to-text/speech-to-text.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ChatWindowComponent,
     LoginComponent,
-    SentimentAnalysisComponent
+    SentimentAnalysisComponent,
+    SpeechToTextComponent
   ],
   imports: [
     BrowserModule,
